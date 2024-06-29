@@ -1,0 +1,9 @@
+{
+   "makefile.launchConfigurations": [
+      {
+         "cwd": "/home/pushpender/Documents/MazeGen",
+         "binaryPath": "/home/pushpender/Documents/MazeGen/app",
+         "binaryArgs": []
+      }
+   ]
+}
