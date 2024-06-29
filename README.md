@@ -2,24 +2,22 @@
 A program for generating mazes and solving it with use of A* star path finding algorithm
 
 ## Table of Contents
-- [Installation] #installation
-- [Usage] #usage
-- [Feautres] #features
-- [Contacts] #contacts
+- [Installation] 
+- [Usage] 
+- [Feautres] 
+- [Contacts] 
 
-  ##Installation
+  ## Installation
 
-  Instructions on how to install and set up the project
+  Instructions on how to install and set up G++(GCC) and SFML for the project.
 
-  Install and setup G++ and SFML
+  # For Linux users  
+    - sudo apt install g++
 
-  For Linux users :
-    G++ command : sudo apt install g++
+    - sudo apt install libsfml-dev
 
-    SFML command : sudo apt install libsfml-dev
-
-  For Windows and Mac users :
-  Refer to these sites :
+  # For Windows and Mac users
+  _Refer to these sites_
     - G++ : https://gcc.gnu.org/install/download.html
     - SFML : https://www.sfml-dev.org/tutorials/2.6/
   
@@ -30,8 +28,8 @@ A program for generating mazes and solving it with use of A* star path finding a
   - Automatic path finding using A* path finding algorithm
 
 ## Contact
-  Rishi Raj Singh - rishiraj2954@gmail.com
-  Pushpender Singh - pushpender272320@gmail.com
+  - Rishi Raj Singh - rishiraj2954@gmail.com
+  - Pushpender Singh - pushpender272320@gmail.com
   
   
 
