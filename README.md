@@ -22,6 +22,8 @@ A program for generating mazes and solving it with use of A* star path finding a
     - SFML : https://www.sfml-dev.org/tutorials/2.6/
   
 ## Usage 
+  - Use the makefile for linux users
+  - For Mac/Window use the appropriate commands to compile all the cpp files and link the sfml module with it
 
 ## Features
   - Automatic maze generation with Recursive Backtracking algorithm.
