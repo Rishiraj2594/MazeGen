@@ -1,13 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "lib/maze.h"
+
+#include <iostream> // Remove it after debugging
 
 const int BLOCK_SIZE = 50;
 const int BLOCK_COUNT_X = 10;
-const int BLOCK_COUNT_y = 10;
-const float WALL_THICKNESS = BLOCK_SIZE * 0.02;
+const int BLOCK_COUNT_Y = 10;
+const float WALL_THICKNESS = BLOCK_SIZE*0.04;
 
 const int SCREEN_WIDTH = (BLOCK_COUNT_X-1)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
-const int SCREEN_HEIGHT = (BLOCK_COUNT_y-1)*WALL_THICKNESS + BLOCK_COUNT_y*BLOCK_SIZE;
+const int SCREEN_HEIGHT = (BLOCK_COUNT_Y-1)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
 
 const std::string TITLE = "MAZE"; 
 
@@ -15,7 +18,18 @@ using namespace sf;
 
 int main()
 {
-    RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE);
+    Maze maze(BLOCK_COUNT_X, BLOCK_COUNT_Y);
+
+    maze.remove_all_walls(4, 4);  
+    maze.remove_left_wall(2, 2);    
+    maze.remove_bottom_wall(3, 3);    
+
+    std::cout<<((maze.value_at(2, 2) & 2) == 2)<<std::endl;
+
+    RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
+    window.setVerticalSyncEnabled(true);    // VSync
+
+    int temp_wall_value;
 
     while (window.isOpen())
     {
@@ -27,8 +41,30 @@ int main()
         }
 
         window.clear(Color::White);
+
+        for (int y=0; y<BLOCK_COUNT_Y; y++) {
+            for (int x=0; x<BLOCK_COUNT_X; x++) {
+                temp_wall_value = maze.value_at(x, y);
+                if (temp_wall_value & 1) {
+                    window.draw([x, y] {
+                        RectangleShape line(Vector2f(WALL_THICKNESS, BLOCK_SIZE+(WALL_THICKNESS)));
+                        line.setFillColor(Color::Black);
+                        line.setPosition(Vector2f((x+1)*(BLOCK_SIZE+WALL_THICKNESS), y*(BLOCK_SIZE+WALL_THICKNESS)));
+                        return line;
+                    }());
+                }
+                if ((temp_wall_value & 2) == 2) {
+                    window.draw([x, y] {
+                        RectangleShape line(Vector2f(BLOCK_SIZE+(WALL_THICKNESS), WALL_THICKNESS));
+                        line.setFillColor(Color::Black);
+                        line.setPosition(Vector2f((x)*(BLOCK_SIZE+WALL_THICKNESS), (y+1)*(BLOCK_SIZE+WALL_THICKNESS)));
+                        return line;
+                    }());
+                }
+            }
+            }
         window.display();
-    }
+        }
 
     return 0;
 }
