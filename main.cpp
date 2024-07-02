@@ -7,10 +7,10 @@
 const int BLOCK_SIZE = 50;
 const int BLOCK_COUNT_X = 10;
 const int BLOCK_COUNT_Y = 10;
-const float WALL_THICKNESS = BLOCK_SIZE*0.04;
+const float WALL_THICKNESS = BLOCK_SIZE*0.4;
 
-const int SCREEN_WIDTH = (BLOCK_COUNT_X-1)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
-const int SCREEN_HEIGHT = (BLOCK_COUNT_Y-1)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
+const int SCREEN_WIDTH = (BLOCK_COUNT_X)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
+const int SCREEN_HEIGHT = (BLOCK_COUNT_Y)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
 
 const std::string TITLE = "MAZE"; 
 
@@ -20,11 +20,12 @@ int main()
 {
     Maze maze(BLOCK_COUNT_X, BLOCK_COUNT_Y);
 
-    maze.remove_all_walls(4, 4);  
-    maze.remove_left_wall(2, 2);    
-    maze.remove_bottom_wall(3, 3);    
+    // maze.remove_all_walls(4, 4);  
+    // maze.remove_left_wall(2, 2);    
+    // maze.remove_bottom_wall(3, 3);    
 
-    std::cout<<((maze.value_at(2, 2) & 2) == 2)<<std::endl;
+    std::cout<<SCREEN_WIDTH<<std::endl;
+    std::cout<<SCREEN_HEIGHT<<std::endl;
 
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
@@ -49,7 +50,7 @@ int main()
                     window.draw([x, y] {
                         RectangleShape line(Vector2f(WALL_THICKNESS, BLOCK_SIZE+(WALL_THICKNESS)));
                         line.setFillColor(Color::Black);
-                        line.setPosition(Vector2f((x+1)*(BLOCK_SIZE+WALL_THICKNESS), y*(BLOCK_SIZE+WALL_THICKNESS)));
+                        line.setPosition(Vector2f((x+1)*(BLOCK_SIZE)+(x)*(WALL_THICKNESS), y*(BLOCK_SIZE+WALL_THICKNESS)));
                         return line;
                     }());
                 }
@@ -57,7 +58,7 @@ int main()
                     window.draw([x, y] {
                         RectangleShape line(Vector2f(BLOCK_SIZE+(WALL_THICKNESS), WALL_THICKNESS));
                         line.setFillColor(Color::Black);
-                        line.setPosition(Vector2f((x)*(BLOCK_SIZE+WALL_THICKNESS), (y+1)*(BLOCK_SIZE+WALL_THICKNESS)));
+                        line.setPosition(Vector2f((x)*(BLOCK_SIZE+WALL_THICKNESS), (y+1)*(BLOCK_SIZE)+(y)*(WALL_THICKNESS)));
                         return line;
                     }());
                 }
