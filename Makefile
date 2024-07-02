@@ -1,9 +1,7 @@
 all: clean run
 
-run :
-	g++ -c *.cpp
-	g++ *.o -o app -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+run:
+	g++ main.cpp -I/opt/homebrew/Cellar/sfml/2.6.1/include -o prog -L/opt/homebrew/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-clean : 
-	rm *.o app | echo ""
-
+clean:
+	rm -f prog
