@@ -7,7 +7,7 @@
 const int BLOCK_SIZE = 50;
 const int BLOCK_COUNT_X = 10;
 const int BLOCK_COUNT_Y = 10;
-const int WALL_THICKNESS = BLOCK_SIZE*0.01;
+const int WALL_THICKNESS = BLOCK_SIZE*0.04;
 
 const int SCREEN_WIDTH = (BLOCK_COUNT_X-1)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
 const int SCREEN_HEIGHT = (BLOCK_COUNT_Y-1)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
@@ -38,23 +38,7 @@ int main()
 
         for (int y=0; y<BLOCK_COUNT_Y; y++) {
             for (int x=0; x<BLOCK_COUNT_X; x++) {
-                temp_wall_value = maze.value_at(x, y);
-                if (temp_wall_value & 1) {
-                    window.draw([x, y] {
-                        RectangleShape line(Vector2f(WALL_THICKNESS, BLOCK_SIZE+(WALL_THICKNESS)));
-                        line.setFillColor(Color::Black);
-                        line.setPosition(Vector2f((x+1)*(BLOCK_SIZE)+(x)*(WALL_THICKNESS), y*(BLOCK_SIZE+WALL_THICKNESS)));
-                        return line;
-                    }());
-                }
-                if ((temp_wall_value & 2) == 2) {
-                    window.draw([x, y] {
-                        RectangleShape line(Vector2f(BLOCK_SIZE+(WALL_THICKNESS), WALL_THICKNESS));
-                        line.setFillColor(Color::Black);
-                        line.setPosition(Vector2f((x)*(BLOCK_SIZE+WALL_THICKNESS), (y+1)*(BLOCK_SIZE)+(y)*(WALL_THICKNESS)));
-                        return line;
-                    }());
-                }
+                maze.draw_walls(x, y, window, WALL_THICKNESS, BLOCK_SIZE);
             }
             }
         window.display();

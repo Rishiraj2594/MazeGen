@@ -1,10 +1,9 @@
 #include "lib/maze.h"
-#include <vector>
 
-using namespace std;
+using namespace sf;
 
 Maze::Maze(int x_bound, int y_bound) {
-   vector<int> row_holder;
+   std::vector<int> row_holder;
    for (int i=0; i<y_bound; i++) {
       for (int j=0; j<x_bound; j++) {
          row_holder.push_back(3);
@@ -35,11 +34,31 @@ bool Maze::remove_left_wall(int x, int y) {
       return false;
    }
 }
+
 bool Maze::remove_bottom_wall(int x, int y) {
    if (maze[y][x] & 2) {
       maze[y][x] &= 1;
       return true;
    } else {
       return false;
+   }
+}
+
+void Maze::draw_walls(int x, int y, sf::RenderWindow& window, int WALL_THICKNESS, int BLOCK_SIZE) {
+   if (maze[y][x] & 1) {
+      window.draw([x, y, WALL_THICKNESS, BLOCK_SIZE] {
+         RectangleShape line(Vector2f(WALL_THICKNESS, BLOCK_SIZE+(WALL_THICKNESS)));
+         line.setFillColor(Color::Black);
+         line.setPosition(Vector2f((x+1)*(BLOCK_SIZE)+(x)*(WALL_THICKNESS), y*(BLOCK_SIZE+WALL_THICKNESS)));
+         return line;
+      }());
+   }
+   if ((maze[y][x] & 2) == 2) {
+      window.draw([x, y, WALL_THICKNESS, BLOCK_SIZE] {
+         RectangleShape line(Vector2f(BLOCK_SIZE+(WALL_THICKNESS), WALL_THICKNESS));
+         line.setFillColor(Color::Black);
+         line.setPosition(Vector2f((x)*(BLOCK_SIZE+WALL_THICKNESS), (y+1)*(BLOCK_SIZE)+(y)*(WALL_THICKNESS)));
+         return line;
+      }());
    }
 }
