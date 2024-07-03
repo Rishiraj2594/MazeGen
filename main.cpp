@@ -7,10 +7,10 @@
 const int BLOCK_SIZE = 50;
 const int BLOCK_COUNT_X = 10;
 const int BLOCK_COUNT_Y = 10;
-const float WALL_THICKNESS = BLOCK_SIZE*0.4;
+const float WALL_THICKNESS = BLOCK_SIZE*0.2;
 
-const int SCREEN_WIDTH = (BLOCK_COUNT_X)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
-const int SCREEN_HEIGHT = (BLOCK_COUNT_Y)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
+const int SCREEN_WIDTH = (BLOCK_COUNT_X-1)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
+const int SCREEN_HEIGHT = (BLOCK_COUNT_Y-1)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
 
 const std::string TITLE = "MAZE"; 
 
@@ -18,14 +18,7 @@ using namespace sf;
 
 int main()
 {
-    Maze maze(BLOCK_COUNT_X, BLOCK_COUNT_Y);
-
-    // maze.remove_all_walls(4, 4);  
-    // maze.remove_left_wall(2, 2);    
-    // maze.remove_bottom_wall(3, 3);    
-
-    std::cout<<SCREEN_WIDTH<<std::endl;
-    std::cout<<SCREEN_HEIGHT<<std::endl;
+    Maze maze(BLOCK_COUNT_X, BLOCK_COUNT_Y);   
 
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
