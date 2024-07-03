@@ -14,6 +14,8 @@ class Maze{
    bool remove_all_walls(int x, int y);
    bool remove_left_wall(int x, int y);
    bool remove_bottom_wall(int x, int y);
+   void setActiveCell(int x, int y);
+   void setCellInactive(int x, int y);
    void draw_walls(int x, int y, sf::RenderWindow& window, int WALL_THICKNESS, int BLOCK_SIZE);
 };
 

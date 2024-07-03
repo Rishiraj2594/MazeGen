@@ -23,8 +23,6 @@ int main()
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
 
-    int temp_wall_value;
-
     while (window.isOpen())
     {
         Event event;
