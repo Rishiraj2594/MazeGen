@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "lib/maze.h"
-
+#include "lib/maze_generation.h"
 #include <iostream> // Remove it after debugging
 
 const int BLOCK_SIZE = 50;
@@ -22,7 +22,7 @@ int main()
 
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
-
+    MazeGeneration g_maze(maze,BLOCK_COUNT_X,BLOCK_COUNT_Y);
     while (window.isOpen())
     {
         Event event;
@@ -31,15 +31,9 @@ int main()
             if (event.type == Event::Closed)
                 window.close();
         }
-
-        window.clear(Color::White);
-
-        for (int y=0; y<BLOCK_COUNT_Y; y++) {
-            for (int x=0; x<BLOCK_COUNT_X; x++) {
-                maze.draw_walls(x, y, window, WALL_THICKNESS, BLOCK_SIZE);
-            }
-            }
-        window.display();
+        // window.clear(Color::White);
+        g_maze.dfs_genrate_maze(window,WALL_THICKNESS, BLOCK_SIZE);
+        // window.display();
         }
 
     return 0;
