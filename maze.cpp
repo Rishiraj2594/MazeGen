@@ -18,8 +18,8 @@ int Maze::value_at(int x, int y) {
 }
 
 bool Maze::remove_all_walls(int x, int y) {
-   if (maze[y][x] & 3 == 3) {
-      maze[y][x] &= 4;
+   if ((maze[y][x] & 3) == 3) {
+      maze[y][x] &= ~3;
       return true;
    } else {
       return false;
@@ -28,7 +28,7 @@ bool Maze::remove_all_walls(int x, int y) {
 
 bool Maze::remove_left_wall(int x, int y) {
    if (maze[y][x] & 1) {
-      maze[y][x] &= 2;
+      maze[y][x] &= ~1;
       return true;
    } else {
       return false;
@@ -36,8 +36,8 @@ bool Maze::remove_left_wall(int x, int y) {
 }
 
 bool Maze::remove_bottom_wall(int x, int y) {
-   if (maze[y][x] & 2 == 2) {
-      maze[y][x] &= 1;
+   if ((maze[y][x] & 2 )== 2) {
+      maze[y][x] &= ~2;
       return true;
    } else {
       return false;
@@ -49,11 +49,11 @@ void Maze::setActiveCell(int x, int y) {
 }
 
 void Maze::setCellInactive(int x, int y) {
-   maze[y][x] &= 3;
+   maze[y][x] &= ~4;
 }
 
 void Maze::draw_walls(int x, int y, sf::RenderWindow& window, int WALL_THICKNESS, int BLOCK_SIZE) {
-   if (maze[y][x] & 1) {
+   if ((maze[y][x] & 1) == 1) {
       window.draw([x, y, WALL_THICKNESS, BLOCK_SIZE] {
          RectangleShape line(
             Vector2f(WALL_THICKNESS, BLOCK_SIZE + WALL_THICKNESS)
@@ -78,5 +78,11 @@ void Maze::draw_walls(int x, int y, sf::RenderWindow& window, int WALL_THICKNESS
                         );
          return line;
       }());
+   }
+   if((maze[y][x] & 4)==4){
+       sf::RectangleShape cellColor(sf::Vector2f(BLOCK_SIZE,BLOCK_SIZE));
+            cellColor.setPosition(sf::Vector2f(x*(BLOCK_SIZE+WALL_THICKNESS),y*(BLOCK_SIZE+WALL_THICKNESS)));
+            cellColor.setFillColor(sf::Color::Cyan);
+            window.draw(cellColor);
    }
 }
