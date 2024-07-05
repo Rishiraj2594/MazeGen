@@ -103,7 +103,7 @@ void MazeGeneration::dfs_genrate_maze(sf::RenderWindow &window,int WALL_THICKNES
             }
             }
         window.display();
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     }
 }

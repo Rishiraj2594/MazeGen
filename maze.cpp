@@ -69,20 +69,21 @@ void Maze::draw_walls(int x, int y, sf::RenderWindow& window, int WALL_THICKNESS
    if ((maze[y][x] & 2) == 2) {
       window.draw([x, y, WALL_THICKNESS, BLOCK_SIZE] {
          RectangleShape line(
-            Vector2f(BLOCK_SIZE + WALL_THICKNESS, WALL_THICKNESS)
+            Vector2f(BLOCK_SIZE + 2*WALL_THICKNESS, WALL_THICKNESS)
             );
          line.setFillColor(Color::Black);
          line.setPosition(
-                        Vector2f(x * (BLOCK_SIZE + WALL_THICKNESS), 
+                        Vector2f(x * (BLOCK_SIZE + WALL_THICKNESS) - WALL_THICKNESS, 
                            (y + 1) * BLOCK_SIZE + y*WALL_THICKNESS)
                         );
          return line;
       }());
    }
+   /*
    if((maze[y][x] & 4)==4){
        sf::RectangleShape cellColor(sf::Vector2f(BLOCK_SIZE,BLOCK_SIZE));
             cellColor.setPosition(sf::Vector2f(x*(BLOCK_SIZE+WALL_THICKNESS),y*(BLOCK_SIZE+WALL_THICKNESS)));
             cellColor.setFillColor(sf::Color::Cyan);
             window.draw(cellColor);
-   }
+   }*/
 }
