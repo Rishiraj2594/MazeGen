@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include<iostream>
+
 MazeGeneration::MazeGeneration(Maze &maze,int x_bound,int y_bound):maze(maze), x_bound(x_bound), y_bound(y_bound){
     srand(time(0));
 }
@@ -58,7 +59,7 @@ void MazeGeneration::remove_wall(int current_x, int current_y,int neighbour_x, i
     }
 }
 
-void MazeGeneration::dfs_genrate_maze(sf::RenderWindow &window,int WALL_THICKNESS, int BLOCK_SIZE){
+void MazeGeneration::dfs_genrate_maze(int WALL_THICKNESS, int BLOCK_SIZE){
     // setting random initial x & y values
     int current_x = rand() % x_bound; 
     int current_y = rand() % y_bound;
@@ -96,14 +97,13 @@ void MazeGeneration::dfs_genrate_maze(sf::RenderWindow &window,int WALL_THICKNES
         else{
             m_stack.pop();
         }
-        window.clear(sf::Color::White);
-          for (int y=0; y<y_bound; y++) {
-            for (int x=0; x<x_bound; x++) {
-                maze.draw_walls(x,y,window,WALL_THICKNESS,BLOCK_SIZE);
-            }
-            }
-        window.display();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
+        
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+
+}
+void MazeGeneration::generate_maze(int WALL_THICKNESS, int BLOCK_SIZE, MazeGeneration* d) {
+    std::thread mazeGenerationThread(&MazeGeneration::dfs_genrate_maze, d, WALL_THICKNESS, BLOCK_SIZE);
+    
+    mazeGenerationThread.detach();
 }

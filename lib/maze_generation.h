@@ -1,7 +1,6 @@
 #include <stack>
 #include <utility> 
 #include "maze.h"
-#include<SFML/Graphics.hpp>
 #ifndef MAZE_GENERATION_H
 #define MAZE_GENERATION_H
 
@@ -27,7 +26,8 @@ class MazeGeneration {
         MazeGeneration(Maze &maze,int x_bound,int y_bound);
         int get_neighbour(int x, int y);
         void remove_wall(int current_x, int current_y,int neighbour_x, int neighbour_y);
-        void dfs_genrate_maze(sf::RenderWindow& window,int WALL_THICKNESS, int BLOCK_SIZE);
+        void dfs_genrate_maze(int WALL_THICKNESS, int BLOCK_SIZE);
+        void generate_maze(int WALL_THICKNESS, int BLOCK_SIZE, MazeGeneration* d);
 };
 
 
