@@ -98,12 +98,11 @@ void MazeGeneration::dfs_genrate_maze(int WALL_THICKNESS, int BLOCK_SIZE){
             m_stack.pop();
         }
         
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
 }
 void MazeGeneration::generate_maze(int WALL_THICKNESS, int BLOCK_SIZE, MazeGeneration* d) {
     std::thread mazeGenerationThread(&MazeGeneration::dfs_genrate_maze, d, WALL_THICKNESS, BLOCK_SIZE);
     
-    mazeGenerationThread.detach();
+    mazeGenerationThread.join();
 }
