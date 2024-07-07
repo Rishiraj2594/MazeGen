@@ -170,7 +170,6 @@ void A_Star::find_path(std::vector<Block*>& open_list, std::vector<Block*>& clos
             }
          }
       }
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
    }
    draw_path(current_block, path);
 }  
@@ -181,6 +180,7 @@ void A_Star::draw_path(Block* currnet_block, std::vector<Block*>& path)
    {
       path.push_back(currnet_block);
       currnet_block = currnet_block->parent;
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
    } 
    path.push_back(currnet_block);
 }
