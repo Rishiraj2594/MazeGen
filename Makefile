@@ -7,3 +7,5 @@ run :
 clean : 
 	rm *.o app | echo ""
 
+cleanup :
+	rm *.o

@@ -29,7 +29,10 @@ int main()
 
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
-    
+
+    window.setPosition(Vector2i(300, 100));
+
+
     MazeGeneration g_maze(maze,BLOCK_COUNT_X,BLOCK_COUNT_Y);
     g_maze.generate_maze(WALL_THICKNESS, BLOCK_SIZE, &g_maze);
 
