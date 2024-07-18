@@ -5,10 +5,10 @@
 #include "lib/a_star.h"
 #include <iostream> // Remove it after debugging
 
-const int BLOCK_SIZE = 20;
+const int BLOCK_SIZE = 25;
 const int BLOCK_COUNT_X = 20;
 const int BLOCK_COUNT_Y = 20;
-const int WALL_THICKNESS = BLOCK_SIZE*0.08;
+const int WALL_THICKNESS = BLOCK_SIZE*0.1;
 
 const int SCREEN_WIDTH = (BLOCK_COUNT_X-1)*WALL_THICKNESS + BLOCK_COUNT_X*BLOCK_SIZE;
 const int SCREEN_HEIGHT = (BLOCK_COUNT_Y-1)*WALL_THICKNESS + BLOCK_COUNT_Y*BLOCK_SIZE;
@@ -26,6 +26,7 @@ using namespace sf;
 int main()
 {
     Maze maze(BLOCK_COUNT_X, BLOCK_COUNT_Y);   
+    bool algorithmStarted = false;
 
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), TITLE, Style::Titlebar | Style::Close);
     window.setVerticalSyncEnabled(true);    // VSync
@@ -37,8 +38,7 @@ int main()
     g_maze.generate_maze(WALL_THICKNESS, BLOCK_SIZE, &g_maze);
 
     A_Star a(start, end, &maze, Vector2f(BLOCK_COUNT_X-1, BLOCK_COUNT_Y-1), 4*WALL_THICKNESS);
-    a.start_path_finding(open_list, closed_list, path);
-
+    
     RectangleShape start_block(Vector2f(BLOCK_SIZE, BLOCK_SIZE)), end_block(Vector2f(BLOCK_SIZE, BLOCK_SIZE));
     start_block.setFillColor(Color::Red);
     end_block.setFillColor(Color::Green);
@@ -52,6 +52,10 @@ int main()
         {
             if (event.type == Event::Closed)
                 window.close();
+            if ((event.type == Event::KeyReleased) && !algorithmStarted) {
+                algorithmStarted = true;
+                a.start_path_finding(open_list, closed_list, path);
+            }
         }
 
         window.clear(sf::Color::White);
